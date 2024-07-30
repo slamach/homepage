@@ -1,0 +1,21 @@
+{
+  "name": "homepage",
+  "version": "0.0.1",
+  "description": "Dmitrii Sviridov's personal blog",
+  "license": "(GPL-3.0 OR CC-BY-SA-4.0)",
+  "author": "Dmitrii Sviridov <sviridov.dvv@gmail.com>",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.12.3",
+    "@astrojs/check": "^0.8.3",
+    "typescript": "^5.5.4"
+  }
+}
