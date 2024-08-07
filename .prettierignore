@@ -1,0 +1,9 @@
+# Build Output
+/dist/
+
+# Generated Types
+.astro/
+
+# IDE
+.idea/
+.vscode/
