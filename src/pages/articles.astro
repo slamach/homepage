@@ -1,0 +1,18 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const title = 'Articles';
+const description =
+  'Articles, news, and tutorials on ' +
+  'front-end development and programming by Dmitrii Sviridov.';
+---
+
+<BaseLayout title={title} description={description}>
+  <h1>Articles</h1>
+  <p>Page with the list of my articles.</p>
+  <ul>
+    <li><a href="/articles/demo-article-1/">First Demo Article 👻</a></li>
+    <li><a href="/articles/demo-article-2/">Second Demo Article 🤯</a></li>
+    <li><a href="/articles/demo-article-3/">Third Demo Article 🥹</a></li>
+  </ul>
+</BaseLayout>

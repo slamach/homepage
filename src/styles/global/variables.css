@@ -1,0 +1,14 @@
+:root {
+  /* Fonts */
+  --font-family-text: Inter, 'Inter Fallback', sans-serif;
+  --font-family-heading: Poppins, 'Poppins Fallback', sans-serif;
+  --font-family-monospace: 'JetBrains Mono', monospace;
+
+  /* Colors */
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f1f0ff;
+  --color-text: #0c0b1d;
+  --color-text-secondary: #5f5f6d;
+  --color-accent: #463fa9;
+  --color-accent-secondary: rgba(70, 63, 169, 0.3);
+}

@@ -1,0 +1,43 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { getFormattedDateString } from '@utils/getFormattedDateString';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    createdOn: string;
+    updatedOn?: string;
+    tags?: string[];
+  };
+}
+
+const { title, createdOn, updatedOn, tags } = Astro.props.frontmatter;
+
+const formattedCreatedOn = getFormattedDateString(new Date(createdOn));
+const formattedUpdatedOn =
+  updatedOn && getFormattedDateString(new Date(updatedOn));
+---
+
+<BaseLayout title={title}>
+  <div>
+    <h1>{title}</h1>
+    <time datetime={createdOn}>
+      {formattedCreatedOn}
+      {formattedUpdatedOn && <span>(updated on {formattedUpdatedOn})</span>}
+    </time>
+  </div>
+
+  <slot />
+
+  <div>
+    {
+      tags && (
+        <ul>
+          {tags.map((tag) => (
+            <li>{tag}</li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</BaseLayout>

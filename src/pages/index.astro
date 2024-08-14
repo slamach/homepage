@@ -1,15 +1,14 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 
 const title = 'Dmitrii Sviridov';
 const description =
   'Personal blog of a front-end developer, ' +
-  'who loves making high-performance web interfaces and helping others navigate the tech world.';
+  'who loves making high-performance web interfaces and ' +
+  'helping others navigate the tech world.';
 ---
 
-<Layout title={title} description={description}>
-  <main>
-    <h1>Dmitrii Sviridov</h1>
-    <p>My personal blog.</p>
-  </main>
-</Layout>
+<BaseLayout title={title} description={description}>
+  <h1>Dmitrii Sviridov</h1>
+  <p>Home page of my personal blog.</p>
+</BaseLayout>
