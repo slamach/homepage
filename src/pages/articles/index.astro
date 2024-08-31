@@ -1,5 +1,5 @@
 ---
-import { type ArticleFrontmatter } from 'src/types';
+import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { ARTICLE_TAGS } from 'src/constants';
 
@@ -8,7 +8,7 @@ const description =
   'Articles, news, and tutorials on ' +
   'front-end development and programming by Dmitrii Sviridov.';
 
-const articles = await Astro.glob<ArticleFrontmatter>('./articles/*.md');
+const articles = await getCollection('articles');
 ---
 
 <BaseLayout title={title} description={description}>
@@ -17,7 +17,7 @@ const articles = await Astro.glob<ArticleFrontmatter>('./articles/*.md');
     {
       articles.map((article) => (
         <li>
-          <a href={article.url}>{article.frontmatter.title}</a>
+          <a href={`/articles/${article.slug}`}>{article.data.title}</a>
         </li>
       ))
     }

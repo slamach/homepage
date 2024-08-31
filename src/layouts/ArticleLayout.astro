@@ -1,23 +1,22 @@
 ---
-import type { ArticleFrontmatter } from 'src/types';
+import type { CollectionEntry } from 'astro:content';
 import { getFormattedDateString } from '@utils/getFormattedDateString';
 import BaseLayout from './BaseLayout.astro';
 
 interface Props {
-  frontmatter: ArticleFrontmatter;
+  articleData: CollectionEntry<'articles'>['data'];
 }
 
-const { title, createdOn, updatedOn, tags } = Astro.props.frontmatter;
+const { title, createdOn, updatedOn, tags } = Astro.props.articleData;
 
-const formattedCreatedOn = getFormattedDateString(new Date(createdOn));
-const formattedUpdatedOn =
-  updatedOn && getFormattedDateString(new Date(updatedOn));
+const formattedCreatedOn = getFormattedDateString(createdOn);
+const formattedUpdatedOn = updatedOn && getFormattedDateString(updatedOn);
 ---
 
 <BaseLayout title={title}>
   <div>
     <h1>{title}</h1>
-    <time datetime={createdOn}>
+    <time datetime={createdOn.toISOString()}>
       {formattedCreatedOn}
       {formattedUpdatedOn && <span>(updated on {formattedUpdatedOn})</span>}
     </time>

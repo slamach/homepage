@@ -1,8 +1,7 @@
 ---
-layout: '@layouts/ArticleLayout.astro'
-title: 'Third Demo Article 🥹'
-createdOn: 2024-08-04
-tags: ['frontend', 'css']
+title: 'Second Demo Article 🤯'
+createdOn: 2024-07-03
+tags: ['react', 'css']
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed vulputate erat. Proin vitae orci at lorem sagittis semper. Cras ultricies, libero vitae vestibulum dignissim, metus nisi iaculis tellus, at pharetra odio lectus nec diam. Duis id orci neque. Nulla dapibus est sed dolor gravida, vel ultricies arcu scelerisque. Suspendisse vitae dapibus mi, pharetra posuere orci. Sed venenatis laoreet varius. Integer sit amet lacinia ante. Mauris ac tincidunt dui. Integer interdum nisl a ullamcorper venenatis.

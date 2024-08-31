@@ -4,10 +4,3 @@ export enum ArticleTag {
   CSS = 'css',
   OTHER = 'other',
 }
-
-export interface ArticleFrontmatter {
-  title: string;
-  createdOn: string;
-  updatedOn?: string;
-  tags?: ArticleTag[];
-}
