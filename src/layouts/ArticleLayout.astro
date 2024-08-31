@@ -1,14 +1,10 @@
 ---
-import BaseLayout from './BaseLayout.astro';
+import type { ArticleFrontmatter } from 'src/types';
 import { getFormattedDateString } from '@utils/getFormattedDateString';
+import BaseLayout from './BaseLayout.astro';
 
 interface Props {
-  frontmatter: {
-    title: string;
-    createdOn: string;
-    updatedOn?: string;
-    tags?: string[];
-  };
+  frontmatter: ArticleFrontmatter;
 }
 
 const { title, createdOn, updatedOn, tags } = Astro.props.frontmatter;
@@ -34,7 +30,9 @@ const formattedUpdatedOn =
       tags && (
         <ul>
           {tags.map((tag) => (
-            <li>{tag}</li>
+            <li>
+              <a href={`/tags/${tag}`}>#{tag}</a>
+            </li>
           ))}
         </ul>
       )

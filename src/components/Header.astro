@@ -1,0 +1,43 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<header class:list={['container', className]} {...rest}>
+  <nav>
+    <ul class="navigation-list">
+      <li>
+        <a class="navigation-link" href="/articles">Articles</a>
+      </li>
+      <li>
+        <!-- TODO: Add link to resume -->
+        <a class="navigation-link" href="#">Resume</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .container {
+    padding: 32px 0;
+  }
+
+  .navigation-list {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .navigation-link {
+    text-transform: lowercase;
+    text-decoration: none;
+    font-weight: 500;
+    color: inherit;
+  }
+</style>

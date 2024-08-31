@@ -1,18 +1,34 @@
 ---
+import { type ArticleFrontmatter } from 'src/types';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { ARTICLE_TAGS } from 'src/constants';
 
 const title = 'Articles';
 const description =
   'Articles, news, and tutorials on ' +
   'front-end development and programming by Dmitrii Sviridov.';
+
+const articles = await Astro.glob<ArticleFrontmatter>('./articles/*.md');
 ---
 
 <BaseLayout title={title} description={description}>
   <h1>Articles</h1>
-  <p>Page with the list of my articles.</p>
   <ul>
-    <li><a href="/articles/demo-article-1/">First Demo Article 👻</a></li>
-    <li><a href="/articles/demo-article-2/">Second Demo Article 🤯</a></li>
-    <li><a href="/articles/demo-article-3/">Third Demo Article 🥹</a></li>
+    {
+      articles.map((article) => (
+        <li>
+          <a href={article.url}>{article.frontmatter.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <ul>
+    {
+      ARTICLE_TAGS.map((tag) => (
+        <li>
+          <a href={`/tags/${tag}`}>#{tag}</a>
+        </li>
+      ))
+    }
   </ul>
 </BaseLayout>

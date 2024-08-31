@@ -1,0 +1,58 @@
+---
+import { ArticleTag, type ArticleFrontmatter } from 'src/types';
+import type { MarkdownInstance } from 'astro';
+import { ARTICLE_TAGS } from 'src/constants';
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+interface GetStaticPathItem {
+  params: {
+    tag: ArticleTag;
+  };
+  props: {
+    articles: MarkdownInstance<ArticleFrontmatter>[];
+  };
+}
+
+export const getStaticPaths = async (): Promise<GetStaticPathItem[]> => {
+  const allArticles = await Astro.glob<ArticleFrontmatter>('../articles/*.md');
+
+  return ARTICLE_TAGS.map((tag) => {
+    const filteredArticles = allArticles.filter((article) =>
+      article.frontmatter.tags?.includes(tag),
+    );
+
+    return {
+      params: { tag },
+      props: { articles: filteredArticles },
+    };
+  });
+};
+
+const { tag } = Astro.params;
+const { articles } = Astro.props;
+
+const title = `Articles tagged #${tag}`;
+const description =
+  'Articles, news, and tutorials on ' +
+  'front-end development and programming by Dmitrii Sviridov ' +
+  `tagged #${tag}.`;
+
+const isEmpty = articles.length === 0;
+---
+
+<BaseLayout title={title} description={description}>
+  <h1>Articles tagged #{tag}</h1>
+  {
+    isEmpty ? (
+      <p>No articles found</p>
+    ) : (
+      <ul>
+        {articles.map((article) => (
+          <li>
+            <a href={article.url}>{article.frontmatter.title}</a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</BaseLayout>
