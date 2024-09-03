@@ -1,5 +1,11 @@
 const postcssPresetEnv = require('postcss-preset-env');
+const postcssGlobalData = require('@csstools/postcss-global-data');
 
 module.exports = {
-  plugins: [postcssPresetEnv()],
+  plugins: [
+    postcssGlobalData({
+      files: ['./src/styles/postcss-global.css'],
+    }),
+    postcssPresetEnv(),
+  ],
 };
