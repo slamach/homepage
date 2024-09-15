@@ -2,51 +2,75 @@
 import { Image } from 'astro:assets';
 import logoImage from '@assets/logo.svg';
 import { Icon } from 'astro-icon/components';
+import { config } from 'src/constants';
+import IconLink from './IconLink.astro';
 
 interface Props {
-  class?: string;
+  className?: string;
 }
 
-const { class: className, ...rest } = Astro.props;
+const { className, ...rest } = Astro.props;
 ---
 
-<header class:list={['container', className]} {...rest}>
+<header class:list={['header', className]} {...rest}>
   <a class="logo" href="/">
     <Image src={logoImage} alt="Dmitrii Sviridov's logo" loading="eager" />
   </a>
-  <nav class="navigation">
+  <button
+    id="menu-button"
+    class="menu-button"
+    type="button"
+    aria-expanded="false"
+    aria-controls="navigation"
+    aria-label="Toggle menu"
+  >
+    <Icon
+      id="menu-icon-open"
+      class="menu-icon"
+      name="menu"
+      size={24}
+      aria-hidden="true"
+    />
+    <Icon
+      id="menu-icon-close"
+      class="menu-icon hidden"
+      name="cross"
+      size={24}
+      aria-hidden="true"
+    />
+  </button>
+  <nav id="navigation" class="navigation">
     <ul class="navigation-list">
       <li>
         <a class="navigation-link" href="/articles">Articles</a>
       </li>
       <li>
-        <!-- TODO: Add link to resume -->
-        <a class="navigation-link" href="#">Resume</a>
+        <a class="navigation-link" href={config.links.resume}>Resume</a>
       </li>
     </ul>
     <ul class="action-list">
       <li>
-        <a class="action-link" href="/rss.xml">
-          <span class="visually-hidden">RSS</span>
-          <Icon name="rss" size={24} />
-        </a>
+        <IconLink href="/rss.xml" icon="rss" label="RSS" />
       </li>
       <li>
         <!-- TODO: Make theme switch button -->
-        <a class="action-link" href="#">
-          <span class="visually-hidden">Switch theme</span>
-          <Icon name="sun" size={24} />
-        </a>
+        <IconLink href="#" icon="sun" label="Switch theme" />
       </li>
     </ul>
   </nav>
 </header>
 
 <style>
-  .container {
+  .hidden {
+    display: none;
+  }
+
+  .header {
+    position: relative;
     display: flex;
     align-items: center;
     padding: 16px 0;
+    background-color: var(--color-bg);
 
     @media (--tablet) {
       padding: 32px 0;
@@ -57,10 +81,45 @@ const { class: className, ...rest } = Astro.props;
     margin-right: auto;
   }
 
+  .menu-button {
+    padding: 8px;
+    padding-right: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+
+    @media (--hover) {
+      &:hover {
+        color: var(--color-accent);
+      }
+    }
+
+    @media (--tablet) {
+      display: none;
+    }
+  }
+
   .navigation {
-    display: flex;
-    align-items: center;
-    gap: 32px;
+    @media (--mobile) {
+      display: none;
+
+      &.shown {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        top: 64px;
+        padding: 0 8px;
+      }
+    }
+
+    @media (--tablet) {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
   }
 
   .navigation-list {
@@ -77,6 +136,12 @@ const { class: className, ...rest } = Astro.props;
     text-decoration: none;
     font-weight: 500;
     color: inherit;
+
+    @media (--hover) {
+      &:hover {
+        color: var(--color-accent);
+      }
+    }
   }
 
   .action-list {
@@ -87,18 +152,25 @@ const { class: className, ...rest } = Astro.props;
     padding: 0;
     list-style: none;
   }
-
-  .action-link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 24px;
-    height: 24px;
-    color: inherit;
-
-    &:hover,
-    &:focus-visible {
-      color: var(--color-accent);
-    }
-  }
 </style>
+
+<script>
+  const navigation = document.getElementById('navigation');
+  const menuButton = document.getElementById('menu-button');
+  const menuIconOpen = document.getElementById('menu-icon-open');
+  const menuIconClose = document.getElementById('menu-icon-close');
+
+  menuButton?.addEventListener('click', () => {
+    const isMenuOpen = menuButton?.getAttribute('aria-expanded') === 'true';
+
+    if (isMenuOpen) {
+      menuButton?.setAttribute('aria-expanded', 'false');
+    } else {
+      menuButton?.setAttribute('aria-expanded', 'true');
+    }
+
+    navigation?.classList.toggle('shown');
+    menuIconOpen?.classList.toggle('hidden');
+    menuIconClose?.classList.toggle('hidden');
+  });
+</script>

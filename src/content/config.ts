@@ -1,5 +1,7 @@
 import { z, defineCollection } from 'astro:content';
-import { ArticleTag } from 'src/types';
+import { ArticleTag } from 'src/constants';
+
+const DEFAULT_ARTICLE_TAGS = [ArticleTag.OTHER];
 
 const articlesCollection = defineCollection({
   type: 'content',
@@ -7,7 +9,7 @@ const articlesCollection = defineCollection({
     title: z.string(),
     createdOn: z.date(),
     updatedOn: z.date().optional(),
-    tags: z.array(z.nativeEnum(ArticleTag)).default([ArticleTag.OTHER]),
+    tags: z.array(z.nativeEnum(ArticleTag)).default(DEFAULT_ARTICLE_TAGS),
   }),
 });
 

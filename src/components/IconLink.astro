@@ -1,0 +1,35 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  className?: string;
+  icon: string;
+  href: string;
+  label: string;
+}
+
+const ICON_SIZE = 24;
+
+const { className, icon, href, label, ...rest } = Astro.props;
+---
+
+<a
+  class:list={['icon-link', className]}
+  aria-label={label}
+  href={href}
+  {...rest}
+>
+  <Icon name={icon} size={ICON_SIZE} aria-hidden="true" />
+</a>
+
+<style>
+  .icon-link {
+    color: inherit;
+
+    @media (--hover) {
+      &:hover {
+        color: var(--color-accent);
+      }
+    }
+  }
+</style>

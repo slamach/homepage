@@ -1,39 +1,28 @@
 ---
-import { Icon } from 'astro-icon/components';
+import { config } from 'src/constants';
+import IconLink from './IconLink.astro';
 
 interface Props {
-  class?: string;
+  className?: string;
 }
 
-const { class: className, ...rest } = Astro.props;
+const { className, ...rest } = Astro.props;
 ---
 
-<footer class:list={['container', className]} {...rest}>
+<footer class:list={['footer', className]} {...rest}>
   <p class="copyright">© Dmitrii Sviridov 2024</p>
   <ul class="social-list">
     <li>
-      <a class="social-link" href="https://t.me/slamach">
-        <span class="visually-hidden">Telegram</span>
-        <Icon name="telegram" size={24} />
-      </a>
+      <IconLink href={config.links.telegram} icon="telegram" label="Telegram" />
     </li>
     <li>
-      <a class="social-link" href="mailto:sviridov.dvv@gmail.com">
-        <span class="visually-hidden">Email</span>
-        <Icon name="email" size={24} />
-      </a>
+      <IconLink href=`mailto:${config.email}` icon="email" label="Email" />
     </li>
     <li>
-      <a class="social-link" href="https://github.com/slamach">
-        <span class="visually-hidden">GitHub</span>
-        <Icon name="github" size={24} />
-      </a>
+      <IconLink href={config.links.github} icon="github" label="GitHub" />
     </li>
     <li>
-      <a class="social-link" href="https://www.linkedin.com/in/slamach/">
-        <span class="visually-hidden">LinkedIn</span>
-        <Icon name="linkedin" size={24} />
-      </a>
+      <IconLink href={config.links.linkedin} icon="linkedin" label="LinkedIn" />
     </li>
   </ul>
 </footer>
@@ -41,15 +30,27 @@ const { class: className, ...rest } = Astro.props;
 <style>
   .footer {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column-reverse;
     align-items: center;
-    padding: 32px 0;
+    gap: 8px;
+    padding: 16px 0;
+    color: var(--color-text-secondary);
+
+    @media (--tablet) {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: unset;
+      padding: 32px 0;
+    }
   }
 
   .copyright {
     margin: 0;
     font-size: 14px;
-    color: var(--color-text-secondary);
+
+    @media (--tablet) {
+      font-size: 16px;
+    }
   }
 
   .social-list {
@@ -59,19 +60,5 @@ const { class: className, ...rest } = Astro.props;
     margin: 0;
     padding: 0;
     list-style: none;
-  }
-
-  .social-link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 24px;
-    height: 24px;
-    color: var(--color-text-secondary);
-
-    &:hover,
-    &:focus-visible {
-      color: var(--color-accent);
-    }
   }
 </style>

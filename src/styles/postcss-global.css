@@ -2,3 +2,6 @@
 @custom-media --mobile (width < 768px);
 @custom-media --tablet (width >= 768px);
 @custom-media --desktop (width >= 1200px);
+
+/* Misc */
+@custom-media --hover (hover: hover) and (pointer: fine);
