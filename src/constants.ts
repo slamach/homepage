@@ -1,6 +1,7 @@
 export const config = {
   links: {
     resume: '#', // TODO: Add resume link
+    buymeacoffee: '#', // TODO: Add buymeacoffee link
     telegram: 'https://t.me/slamach',
     github: 'https://github.com/slamach',
     linkedin: 'https://www.linkedin.com/in/slamach/',

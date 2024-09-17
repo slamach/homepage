@@ -1,14 +1,164 @@
 ---
-import BaseLayout from '@layouts/BaseLayout.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { Icon } from 'astro-icon/components';
+import { config } from '@/constants';
+import { shortenUrl } from '@/utils/shortenUrl';
+import Link from '@/components/Link.astro';
+import { he } from '@/utils/htmlEntities';
+import ArticlesList from '@/components/ArticlesList.astro';
 
 const title = 'Dmitrii Sviridov';
 const description =
   'Personal blog of a front-end developer, ' +
   'who loves making high-performance web interfaces and ' +
   'helping others navigate the tech world.';
+
+const MAX_LATEST_ARTICLES = 5;
+
+const allArticles = await getCollection('articles');
+const latestArticles = allArticles.slice(0, MAX_LATEST_ARTICLES);
 ---
 
 <BaseLayout title={title} description={description}>
-  <h1>Dmitrii Sviridov</h1>
-  <p>Home page of my personal blog.</p>
+  <h1 class="visually-hidden">Dmitrii Sviridov</h1>
+  <section class="about-section">
+    <h2 class="greeting">Hey, I'm Dmitrii</h2>
+    <p class="about-text">
+      I’m a front-end developer based in Belgrade, Serbia. I love making
+      high-performance web interfaces and helping others navigate the tech
+      world. Outside of{he.nbsp}work, I enjoy playing video games and exploring
+      new{he.nbsp}places.
+    </p>
+    <ul class="links-list">
+      <li class="links-list__item">
+        <Icon class="links-list__icon" name="telegram" size={24} />
+        <Link href={config.links.telegram} aria-label="Telegram">
+          {shortenUrl(config.links.telegram)}
+        </Link>
+      </li>
+      <li class="links-list__item">
+        <Icon class="links-list__icon" name="email" size={24} />
+        <Link href=`mailto:${config.email}` aria-label="Email">
+          {config.email}
+        </Link>
+      </li>
+      <li class="links-list__item">
+        <Icon class="links-list__icon" name="github" size={24} />
+        <Link href={config.links.github} aria-label="GitHub">
+          {shortenUrl(config.links.github)}
+        </Link>
+      </li>
+      <li class="links-list__item">
+        <Icon class="links-list__icon" name="linkedin" size={24} />
+        <Link href={config.links.linkedin} aria-label="LinkedIn">
+          {shortenUrl(config.links.linkedin)}
+        </Link>
+      </li>
+    </ul>
+    <p class="buymeacoffee">
+      You can also <a>b</a>uy me a coffee by clicking
+      <Link href={config.links.buymeacoffee} aria-label="Buy me a coffee">
+        here</Link
+      >
+      <span>.</span>
+    </p>
+  </section>
+  <section class="articles-section">
+    <div class="articles-section__header">
+      <h2 class="articles-section__title">Latest Articles</h2>
+      <Link href="/articles">View all</Link>
+    </div>
+    <ArticlesList articles={latestArticles} />
+  </section>
 </BaseLayout>
+
+<style>
+  .about-section {
+    margin-bottom: 32px;
+
+    @media (--tablet) {
+      margin-bottom: 72px;
+    }
+  }
+
+  .greeting {
+    margin: 0;
+    margin-bottom: 16px;
+    font-family: var(--font-family-heading);
+    font-size: 30px;
+    line-height: 36px;
+    font-weight: 500;
+
+    @media (--tablet) {
+      font-size: 36px;
+      line-height: 44px;
+      margin-bottom: 18px;
+    }
+  }
+
+  .about-text {
+    margin: 0;
+    margin-bottom: 16px;
+
+    @media (--tablet) {
+      margin-bottom: 18px;
+    }
+  }
+
+  .links-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 9px;
+    margin: 0;
+    margin-bottom: 16px;
+    padding: 0;
+    list-style: none;
+
+    @media (--tablet) {
+      grid-template-columns: repeat(2, 1fr);
+      margin-bottom: 18px;
+    }
+  }
+
+  .links-list__item {
+    display: flex;
+    align-items: center;
+  }
+
+  .links-list__icon {
+    margin-right: 8px;
+  }
+
+  .buymeacoffee {
+    margin: 0;
+
+    span:last-child {
+      margin-left: -4px;
+    }
+  }
+
+  .articles-section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+
+    @media (--tablet) {
+      margin-bottom: 18px;
+    }
+  }
+
+  .articles-section__title {
+    margin: 0;
+    font-family: var(--font-family-heading);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 30px;
+
+    @media (--tablet) {
+      font-size: 30px;
+      line-height: 36px;
+    }
+  }
+</style>

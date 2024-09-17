@@ -1,7 +1,7 @@
 ---
-import '@styles/global/index.css';
-import Header from '@components/Header.astro';
-import Footer from '@components/Footer.astro';
+import '@/styles/global/index.css';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
 
 interface Props {
   title: string;
@@ -26,17 +26,17 @@ const { title, description } = Astro.props;
     {description && <meta name="description" content={description} />}
   </head>
 
-  <body class="base-layout-container">
-    <Header className="header-section" />
-    <main class="main-section">
+  <body class="base-layout">
+    <Header className="base-layout__header" />
+    <main class="base-layout__main">
       <slot />
     </main>
-    <Footer className="footer-section" />
+    <Footer className="base-layout__footer" />
   </body>
 </html>
 
 <style>
-  .base-layout-container {
+  .base-layout {
     display: flex;
     flex-direction: column;
     min-width: 320px;
@@ -58,12 +58,16 @@ const { title, description } = Astro.props;
     }
   }
 
-  .header-section,
-  .main-section {
-    margin-bottom: 64px;
+  .base-layout__header,
+  .base-layout__main {
+    margin-bottom: 32px;
+
+    @media (--tablet) {
+      margin-bottom: 64px;
+    }
   }
 
-  .footer-section {
+  .base-layout__footer {
     margin-top: auto;
   }
 </style>

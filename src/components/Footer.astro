@@ -1,5 +1,5 @@
 ---
-import { config } from 'src/constants';
+import { config } from '@/constants';
 import IconLink from './IconLink.astro';
 
 interface Props {
@@ -10,8 +10,8 @@ const { className, ...rest } = Astro.props;
 ---
 
 <footer class:list={['footer', className]} {...rest}>
-  <p class="copyright">© Dmitrii Sviridov 2024</p>
-  <ul class="social-list">
+  <p class="footer__copyright">© Dmitrii Sviridov 2024</p>
+  <ul class="footer__socials-list">
     <li>
       <IconLink href={config.links.telegram} icon="telegram" label="Telegram" />
     </li>
@@ -44,7 +44,7 @@ const { className, ...rest } = Astro.props;
     }
   }
 
-  .copyright {
+  .footer__copyright {
     margin: 0;
     font-size: 14px;
 
@@ -53,7 +53,7 @@ const { className, ...rest } = Astro.props;
     }
   }
 
-  .social-list {
+  .footer__socials-list {
     display: flex;
     align-items: center;
     gap: 8px;

@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getFormattedDateString } from '@utils/getFormattedDateString';
+import { formatDate } from '@/utils/formatDate';
 import BaseLayout from './BaseLayout.astro';
 
 interface Props {
@@ -9,8 +9,8 @@ interface Props {
 
 const { title, createdOn, updatedOn, tags } = Astro.props.articleData;
 
-const formattedCreatedOn = getFormattedDateString(createdOn);
-const formattedUpdatedOn = updatedOn && getFormattedDateString(updatedOn);
+const formattedCreatedOn = formatDate(createdOn);
+const formattedUpdatedOn = updatedOn && formatDate(updatedOn);
 ---
 
 <BaseLayout title={title}>

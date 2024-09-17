@@ -1,5 +1,5 @@
 import { z, defineCollection } from 'astro:content';
-import { ArticleTag } from 'src/constants';
+import { ArticleTag } from '@/constants';
 
 const DEFAULT_ARTICLE_TAGS = [ArticleTag.OTHER];
 

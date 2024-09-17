@@ -1,9 +1,10 @@
 ---
 import { Image } from 'astro:assets';
-import logoImage from '@assets/logo.svg';
+import logoImage from '@/assets/logo.svg';
 import { Icon } from 'astro-icon/components';
-import { config } from 'src/constants';
+import { config } from '@/constants';
 import IconLink from './IconLink.astro';
+import Link from './Link.astro';
 
 interface Props {
   className?: string;
@@ -13,42 +14,48 @@ const { className, ...rest } = Astro.props;
 ---
 
 <header class:list={['header', className]} {...rest}>
-  <a class="logo" href="/">
+  <a class="header__logo" href="/">
     <Image src={logoImage} alt="Dmitrii Sviridov's logo" loading="eager" />
   </a>
   <button
-    id="menu-button"
-    class="menu-button"
+    id="header-menu-button"
+    class="header__menu-button"
     type="button"
     aria-expanded="false"
     aria-controls="navigation"
     aria-label="Toggle menu"
   >
     <Icon
-      id="menu-icon-open"
-      class="menu-icon"
+      id="header-menu-icon-open"
+      class="header__menu-icon"
       name="menu"
       size={24}
       aria-hidden="true"
     />
     <Icon
-      id="menu-icon-close"
-      class="menu-icon hidden"
+      id="header-menu-icon-close"
+      class="header__menu-icon hidden"
       name="cross"
       size={24}
       aria-hidden="true"
     />
   </button>
-  <nav id="navigation" class="navigation">
-    <ul class="navigation-list">
+  <nav id="header-navigation" class="header__navigation">
+    <ul class="header__navigation-list">
       <li>
-        <a class="navigation-link" href="/articles">Articles</a>
+        <Link className="header__navigation-link" inverted href="/articles"
+          >Articles</Link
+        >
       </li>
       <li>
-        <a class="navigation-link" href={config.links.resume}>Resume</a>
+        <Link
+          className="header__navigation-link"
+          inverted
+          href={config.links.resume}>Resume</Link
+        >
       </li>
     </ul>
-    <ul class="action-list">
+    <ul class="header__actions-list">
       <li>
         <IconLink href="/rss.xml" icon="rss" label="RSS" />
       </li>
@@ -77,11 +84,11 @@ const { className, ...rest } = Astro.props;
     }
   }
 
-  .logo {
+  .header__logo {
     margin-right: auto;
   }
 
-  .menu-button {
+  .header__menu-button {
     padding: 8px;
     padding-right: 0;
     border: none;
@@ -100,7 +107,7 @@ const { className, ...rest } = Astro.props;
     }
   }
 
-  .navigation {
+  .header__navigation {
     @media (--mobile) {
       display: none;
 
@@ -122,7 +129,7 @@ const { className, ...rest } = Astro.props;
     }
   }
 
-  .navigation-list {
+  .header__navigation-list {
     display: flex;
     align-items: center;
     gap: 16px;
@@ -131,20 +138,13 @@ const { className, ...rest } = Astro.props;
     list-style: none;
   }
 
-  .navigation-link {
+  .header__navigation-link {
     text-transform: lowercase;
     text-decoration: none;
     font-weight: 500;
-    color: inherit;
-
-    @media (--hover) {
-      &:hover {
-        color: var(--color-accent);
-      }
-    }
   }
 
-  .action-list {
+  .header__actions-list {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -155,10 +155,10 @@ const { className, ...rest } = Astro.props;
 </style>
 
 <script>
-  const navigation = document.getElementById('navigation');
-  const menuButton = document.getElementById('menu-button');
-  const menuIconOpen = document.getElementById('menu-icon-open');
-  const menuIconClose = document.getElementById('menu-icon-close');
+  const navigation = document.getElementById('header-navigation');
+  const menuButton = document.getElementById('header-menu-button');
+  const menuIconOpen = document.getElementById('header-menu-icon-open');
+  const menuIconClose = document.getElementById('header-menu-icon-close');
 
   menuButton?.addEventListener('click', () => {
     const isMenuOpen = menuButton?.getAttribute('aria-expanded') === 'true';

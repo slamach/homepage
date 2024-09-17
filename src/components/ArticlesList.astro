@@ -1,0 +1,76 @@
+---
+import { formatDate } from '@/utils/formatDate';
+import type { CollectionEntry } from 'astro:content';
+import Link from './Link.astro';
+
+interface Props {
+  className?: string;
+  articles: CollectionEntry<'articles'>[];
+}
+
+const { className, articles, ...rest } = Astro.props;
+---
+
+<ul class:list={['articles-list', className]} {...rest}>
+  {
+    articles.map((article) => (
+      <li class="articles-list__item">
+        <h3 class="articles-list__title">
+          <Link inverted href={`/articles/${article.slug}`}>
+            {article.data.title}
+          </Link>
+        </h3>
+        <time
+          class="articles-list__time"
+          datetime={article.data.createdOn.toISOString()}
+        >
+          {formatDate(article.data.createdOn)}
+        </time>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .articles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .articles-list__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .articles-list__title {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    font-size: 16px;
+    font-weight: 500;
+
+    @media (--tablet) {
+      font-size: 18px;
+    }
+  }
+
+  .articles-list__time {
+    display: none;
+
+    @media (--tablet) {
+      display: inline;
+      flex-shrink: 0;
+      margin-left: 16px;
+      font-family: var(--font-family-monospace);
+      font-size: 16px;
+      text-align: right;
+      color: var(--color-text-secondary);
+    }
+  }
+</style>
