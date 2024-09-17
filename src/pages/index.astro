@@ -57,11 +57,13 @@ const latestArticles = allArticles.slice(0, MAX_LATEST_ARTICLES);
       </li>
     </ul>
     <p class="buymeacoffee">
-      You can also <a>b</a>uy me a coffee by clicking
-      <Link href={config.links.buymeacoffee} aria-label="Buy me a coffee">
-        here</Link
-      >
-      <span>.</span>
+      You can also buy me a coffee by clicking
+      <span class="buymeacoffee__no-break">
+        <Link href={config.links.buymeacoffee} aria-label="Buy me a coffee">
+          here</Link
+        >
+        <span>.</span>
+      </span>
     </p>
   </section>
   <section class="articles-section">
@@ -132,6 +134,10 @@ const latestArticles = allArticles.slice(0, MAX_LATEST_ARTICLES);
 
   .buymeacoffee {
     margin: 0;
+  }
+
+  .buymeacoffee__no-break {
+    white-space: nowrap;
 
     span:last-child {
       margin-left: -4px;
