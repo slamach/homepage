@@ -2,33 +2,62 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { ARTICLE_TAGS } from '@/constants';
+import ArticlesList from '@/components/ArticlesList.astro';
+import TagsList from '@/components/TagsList.astro';
+import {
+  getSortedArticles,
+  ArticlesSortOrder,
+} from '@/utils/getSortedArticles';
 
 const title = 'Articles';
 const description =
   'Articles, news, and tutorials on ' +
   'front-end development and programming by Dmitrii Sviridov.';
 
-const articles = await getCollection('articles');
+const articles = getSortedArticles(
+  await getCollection('articles'),
+  ArticlesSortOrder.CREATED_ON,
+);
+const isEmpty = articles.length === 0;
 ---
 
 <BaseLayout title={title} description={description}>
-  <h1>Articles</h1>
-  <ul>
-    {
-      articles.map((article) => (
-        <li>
-          <a href={`/articles/${article.slug}`}>{article.data.title}</a>
-        </li>
-      ))
-    }
-  </ul>
-  <ul>
-    {
-      ARTICLE_TAGS.map((tag) => (
-        <li>
-          <a href={`/tags/${tag}`}>#{tag}</a>
-        </li>
-      ))
-    }
-  </ul>
+  <h1 class="articles-page__title">Articles</h1>
+  {
+    !isEmpty ? (
+      <ArticlesList
+        className="articles-page__articles-list"
+        articles={articles}
+      />
+    ) : (
+      <p class="articles-page__empty-text">No articles found</p>
+    )
+  }
+  <TagsList tags={ARTICLE_TAGS} />
 </BaseLayout>
+
+<style>
+  .articles-page__title {
+    margin: 0;
+    margin-bottom: 16px;
+    font-family: var(--font-family-heading);
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 36px;
+
+    @media (--tablet) {
+      margin-bottom: 18px;
+      font-size: 36px;
+      line-height: 44px;
+    }
+  }
+
+  .articles-page__articles-list,
+  .articles-page__empty-text {
+    margin-bottom: 16px;
+
+    @media (--tablet) {
+      margin-bottom: 18px;
+    }
+  }
+</style>

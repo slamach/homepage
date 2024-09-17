@@ -16,7 +16,7 @@ const { className, ...rest } = Astro.props;
       <IconLink href={config.links.telegram} icon="telegram" label="Telegram" />
     </li>
     <li>
-      <IconLink href=`mailto:${config.email}` icon="email" label="Email" />
+      <IconLink href={`mailto:${config.email}`} icon="email" label="Email" />
     </li>
     <li>
       <IconLink href={config.links.github} icon="github" label="GitHub" />

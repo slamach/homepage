@@ -1,0 +1,51 @@
+---
+import type { ArticleTag } from '@/constants';
+
+interface Props {
+  className?: string;
+  tags: ArticleTag[];
+}
+
+const { className, tags, ...rest } = Astro.props;
+---
+
+<ul class:list={['tags-list', className]} {...rest}>
+  {
+    tags.map((tag) => (
+      <li>
+        <a class="tags-list__link" href={`/tags/${tag}`}>
+          #{tag}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tags-list__link {
+    font-family: var(--font-family-monospace);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--color-text-secondary);
+
+    @media (--hover) {
+      &:hover {
+        color: var(--color-accent);
+      }
+    }
+
+    @media (--tablet) {
+      font-size: 16px;
+    }
+  }
+</style>

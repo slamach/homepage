@@ -39,7 +39,7 @@ const latestArticles = allArticles.slice(0, MAX_LATEST_ARTICLES);
       </li>
       <li class="links-list__item">
         <Icon class="links-list__icon" name="email" size={24} />
-        <Link href=`mailto:${config.email}` aria-label="Email">
+        <Link href={`mailto:${config.email}`} aria-label="Email">
           {config.email}
         </Link>
       </li>
