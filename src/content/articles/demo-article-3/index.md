@@ -4,6 +4,8 @@ createdOn: 2024-08-04
 tags: ['frontend', 'css']
 ---
 
+![Image for layout tests](assets/image.png)
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed vulputate erat. Proin vitae orci at lorem sagittis semper. Cras ultricies, libero vitae vestibulum dignissim, metus nisi iaculis tellus, at pharetra odio lectus nec diam. Duis id orci neque. Nulla dapibus est sed dolor gravida, vel ultricies arcu scelerisque. Suspendisse vitae dapibus mi, pharetra posuere orci. Sed venenatis laoreet varius. Integer sit amet lacinia ante. Mauris ac tincidunt dui. Integer interdum nisl a ullamcorper venenatis.
 
 ## First thing
@@ -28,5 +30,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed vulputate e
 - A second thing in the list
 
 ### And more about things
+
+![Image for layout tests](assets/image.png)
+_This is caption for the image above. It can be longer than one line and it’s not a problem really check this out_
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sed vulputate erat. Proin vitae orci at lorem sagittis semper. Cras ultricies, libero vitae vestibulum dignissim, metus nisi iaculis tellus, at pharetra odio lectus nec diam. Duis id orci neque. Nulla dapibus est sed dolor gravida, vel ultricies arcu scelerisque. Suspendisse vitae dapibus mi, pharetra posuere orci. Sed venenatis laoreet varius. Integer sit amet lacinia ante. Mauris ac tincidunt dui. Integer interdum nisl a ullamcorper venenatis.

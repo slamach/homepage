@@ -45,6 +45,8 @@ if (xPostLink) {
     target: '_blank',
   });
 }
+
+// TODO: Make clickable headings
 ---
 
 <BaseLayout title={title}>
@@ -102,16 +104,6 @@ if (xPostLink) {
     }
   }
 
-  .article__main {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
-    @media (--tablet) {
-      gap: 18px;
-    }
-  }
-
   .article__footer {
     margin-top: 24px;
   }
@@ -122,7 +114,100 @@ if (xPostLink) {
 </style>
 
 <style is:global>
-  .article__main > * {
-    margin: 0;
+  .article__main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @media (--tablet) {
+      gap: 18px;
+    }
+
+    p,
+    h2,
+    h3,
+    ul,
+    ol,
+    blockquote {
+      margin: 0;
+    }
+
+    h2,
+    h3 {
+      font-family: var(--font-family-heading);
+      font-weight: 500;
+
+      & + &,
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    h2 {
+      font-size: 24px;
+      line-height: 30px;
+      margin-top: 32px;
+
+      @media (--tablet) {
+        font-size: 30px;
+        line-height: 36px;
+        margin-top: 36px;
+      }
+    }
+
+    h3 {
+      font-size: 18px;
+      line-height: 24px;
+      margin-top: 16px;
+
+      @media (--tablet) {
+        font-size: 24px;
+        line-height: 30px;
+        margin-top: 18px;
+      }
+    }
+
+    img {
+      display: block;
+      border-radius: 12px;
+
+      @media (--tablet) {
+        border-radius: 20px;
+      }
+    }
+
+    img + em {
+      display: block;
+      margin-top: 10px;
+      padding: 0 32px;
+      font-size: 14px;
+      text-align: center;
+      font-style: normal;
+
+      @media (--tablet) {
+        margin-top: 12px;
+        font-size: 16px;
+      }
+    }
+
+    ul,
+    ol {
+      padding-left: 28px;
+
+      @media (--tablet) {
+        padding-left: 32px;
+      }
+    }
+
+    blockquote {
+      padding: 16px;
+      border-radius: 12px;
+      background-color: var(--color-bg-secondary);
+
+      @media (--tablet) {
+        padding: 20px;
+        border-radius: 20px;
+      }
+    }
   }
 </style>

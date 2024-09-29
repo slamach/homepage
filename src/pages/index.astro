@@ -8,6 +8,10 @@ import type { LinksListItem } from '@/components/LinksList.astro';
 import Link from '@/components/Link.astro';
 import LinksList from '@/components/LinksList.astro';
 import ArticlesList from '@/components/ArticlesList.astro';
+import {
+  ArticlesSortOrder,
+  getSortedArticles,
+} from '@/utils/getSortedArticles';
 
 const title = 'Dmitrii Sviridov';
 const description =
@@ -48,7 +52,10 @@ const aboutSectionLinks: LinksListItem[] = [
   },
 ];
 
-const allArticles = await getCollection('articles');
+const allArticles = getSortedArticles(
+  await getCollection('articles'),
+  ArticlesSortOrder.CREATED_ON,
+);
 const latestArticles = allArticles.slice(0, MAX_LATEST_ARTICLES);
 ---
 
