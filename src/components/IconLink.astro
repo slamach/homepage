@@ -1,25 +1,20 @@
 ---
 import { Icon } from 'astro-icon/components';
+import type { HTMLAttributes } from 'astro/types';
 
-interface Props {
+interface Props extends Omit<HTMLAttributes<'a'>, 'class'> {
   className?: string;
-  icon: string;
-  href: string;
-  label: string;
+  iconName: string;
+  ariaLabel: string;
 }
 
 const ICON_SIZE = 24;
 
-const { className, icon, href, label, ...rest } = Astro.props;
+const { className, iconName, ariaLabel, ...rest } = Astro.props;
 ---
 
-<a
-  class:list={['icon-link', className]}
-  aria-label={label}
-  href={href}
-  {...rest}
->
-  <Icon name={icon} size={ICON_SIZE} />
+<a class:list={['icon-link', className]} aria-label={ariaLabel} {...rest}>
+  <Icon name={iconName} size={ICON_SIZE} />
 </a>
 
 <style>

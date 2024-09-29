@@ -1,0 +1,57 @@
+---
+import { Icon } from 'astro-icon/components';
+import Link from './Link.astro';
+import type { HTMLAttributes } from 'astro/types';
+
+export interface LinksListItem {
+  href: string;
+  label: string;
+  iconName: string;
+  target?: HTMLAttributes<'a'>['target'];
+  ariaLabel?: string;
+}
+
+interface Props {
+  className?: string;
+  links: LinksListItem[];
+}
+
+const { className, links, ...rest } = Astro.props;
+---
+
+<ul class:list={['links-list', className]} {...rest}>
+  {
+    links.map(({ href, label, iconName, ariaLabel, target }) => (
+      <li class="links-list__item">
+        <Icon class="links-list__icon" name={iconName} size={24} />
+        <Link href={href} aria-label={ariaLabel} target={target}>
+          {label}
+        </Link>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .links-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 9px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @media (--tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .links-list__item {
+    display: flex;
+    align-items: center;
+  }
+
+  .links-list__icon {
+    margin-right: 8px;
+  }
+</style>

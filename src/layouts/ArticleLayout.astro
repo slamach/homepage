@@ -2,39 +2,127 @@
 import type { CollectionEntry } from 'astro:content';
 import { formatDate } from '@/utils/formatDate';
 import BaseLayout from './BaseLayout.astro';
+import TagsList from '@/components/TagsList.astro';
+import LinksList, { type LinksListItem } from '@/components/LinksList.astro';
+import { config } from '@/constants';
 
 interface Props {
   articleData: CollectionEntry<'articles'>['data'];
 }
 
-const { title, createdOn, updatedOn, tags } = Astro.props.articleData;
+const { title, createdOn, updatedOn, tags, xPostLink } =
+  Astro.props.articleData;
 
 const formattedCreatedOn = formatDate(createdOn);
 const formattedUpdatedOn = updatedOn && formatDate(updatedOn);
+
+const footerLinks: LinksListItem[] = [
+  {
+    href: config.links.blogSourceCode,
+    label: 'Star blog on GitHub',
+    iconName: 'github',
+    target: '_blank',
+  },
+  {
+    href: config.links.buymeacoffee,
+    label: 'Buy me a coffee',
+    iconName: 'coffee',
+    target: '_blank',
+  },
+  {
+    href: '/rss.xml',
+    label: 'Subscribe to RSS',
+    iconName: 'rss',
+    target: '_blank',
+  },
+];
+
+if (xPostLink) {
+  footerLinks.unshift({
+    href: xPostLink,
+    label: 'Discuss article on X',
+    iconName: 'x',
+    target: '_blank',
+  });
+}
 ---
 
 <BaseLayout title={title}>
-  <div>
-    <h1>{title}</h1>
-    <time datetime={createdOn.toISOString()}>
+  <div class="article__header">
+    <h1 class="article__title">{title}</h1>
+    <time class="article__time" datetime={createdOn.toISOString()}>
       {formattedCreatedOn}
       {formattedUpdatedOn && <span>(updated on {formattedUpdatedOn})</span>}
     </time>
   </div>
 
-  <slot />
+  <div class="article__main">
+    <slot />
+  </div>
 
-  <div>
+  <div class="article__footer">
     {
-      tags && (
-        <ul>
-          {tags.map((tag) => (
-            <li>
-              <a href={`/tags/${tag}`}>#{tag}</a>
-            </li>
-          ))}
-        </ul>
+      Boolean(tags.length) && (
+        <TagsList className="article__tags-list" tags={tags} />
       )
     }
+    <LinksList links={footerLinks} />
   </div>
 </BaseLayout>
+
+<style>
+  .article__header {
+    margin-bottom: 24px;
+  }
+
+  .article__title {
+    margin: 0;
+    margin-bottom: 4px;
+    font-family: var(--font-family-heading);
+    font-size: 30px;
+    line-height: 36px;
+    font-weight: 500;
+
+    @media (--tablet) {
+      font-size: 36px;
+      line-height: 44px;
+    }
+  }
+
+  .article__time {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-text-secondary);
+    font-family: var(--font-family-monospace);
+    font-size: 14px;
+
+    @media (--tablet) {
+      display: inline;
+      font-size: 16px;
+    }
+  }
+
+  .article__main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @media (--tablet) {
+      gap: 18px;
+    }
+  }
+
+  .article__footer {
+    margin-top: 24px;
+  }
+
+  .article__tags-list {
+    margin-bottom: 16px;
+  }
+</style>
+
+<style is:global>
+  .article__main > * {
+    margin: 0;
+  }
+</style>

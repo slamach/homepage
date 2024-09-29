@@ -9,6 +9,7 @@ const articlesCollection = defineCollection({
     title: z.string(),
     createdOn: z.date(),
     updatedOn: z.date().optional(),
+    xPostLink: z.string().url().optional(),
     tags: z.array(z.nativeEnum(ArticleTag)).default(DEFAULT_ARTICLE_TAGS),
   }),
 });

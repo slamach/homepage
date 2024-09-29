@@ -22,7 +22,7 @@ const { className, ...rest } = Astro.props;
     class="header__menu-button"
     type="button"
     aria-expanded="false"
-    aria-controls="navigation"
+    aria-controls="header-navigation"
     aria-label="Toggle menu"
   >
     <Icon
@@ -57,11 +57,11 @@ const { className, ...rest } = Astro.props;
     </ul>
     <ul class="header__actions-list">
       <li>
-        <IconLink href="/rss.xml" icon="rss" label="RSS" />
+        <IconLink href="/rss.xml" iconName="rss" ariaLabel="RSS" />
       </li>
       <li>
         <!-- TODO: Make theme switch button -->
-        <IconLink href="#" icon="sun" label="Switch theme" />
+        <IconLink href="#" iconName="sun" ariaLabel="Switch theme" />
       </li>
     </ul>
   </nav>

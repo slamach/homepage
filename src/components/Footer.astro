@@ -13,16 +13,36 @@ const { className, ...rest } = Astro.props;
   <p class="footer__copyright">© Dmitrii Sviridov 2024</p>
   <ul class="footer__socials-list">
     <li>
-      <IconLink href={config.links.telegram} icon="telegram" label="Telegram" />
+      <IconLink
+        href={config.links.telegram}
+        iconName="telegram"
+        ariaLabel="Telegram"
+        target="_blank"
+      />
     </li>
     <li>
-      <IconLink href={`mailto:${config.email}`} icon="email" label="Email" />
+      <IconLink
+        href={`mailto:${config.email}`}
+        iconName="email"
+        ariaLabel="Email"
+        target="_blank"
+      />
     </li>
     <li>
-      <IconLink href={config.links.github} icon="github" label="GitHub" />
+      <IconLink
+        href={config.links.github}
+        iconName="github"
+        ariaLabel="GitHub"
+        target="_blank"
+      />
     </li>
     <li>
-      <IconLink href={config.links.linkedin} icon="linkedin" label="LinkedIn" />
+      <IconLink
+        href={config.links.linkedin}
+        iconName="linkedin"
+        ariaLabel="LinkedIn"
+        target="_blank"
+      />
     </li>
   </ul>
 </footer>

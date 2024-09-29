@@ -4,6 +4,7 @@ export const config = {
     buymeacoffee: '#', // TODO: Add buymeacoffee link
     telegram: 'https://t.me/slamach',
     github: 'https://github.com/slamach',
+    blogSourceCode: 'https://github.com/slamach/homepage',
     linkedin: 'https://www.linkedin.com/in/slamach/',
   },
   email: 'sviridov.dvv@gmail.com',

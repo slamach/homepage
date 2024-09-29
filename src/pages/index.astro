@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { Icon } from 'astro-icon/components';
 import { config } from '@/constants';
 import { shortenUrl } from '@/utils/shortenUrl';
-import Link from '@/components/Link.astro';
 import { he } from '@/utils/htmlEntities';
+import type { LinksListItem } from '@/components/LinksList.astro';
+import Link from '@/components/Link.astro';
+import LinksList from '@/components/LinksList.astro';
 import ArticlesList from '@/components/ArticlesList.astro';
 
 const title = 'Dmitrii Sviridov';
@@ -16,6 +17,37 @@ const description =
 
 const MAX_LATEST_ARTICLES = 5;
 
+const aboutSectionLinks: LinksListItem[] = [
+  {
+    href: config.links.telegram,
+    label: shortenUrl(config.links.telegram),
+    iconName: 'telegram',
+    ariaLabel: 'Telegram',
+    target: '_blank',
+  },
+  {
+    href: `mailto:${config.email}`,
+    label: config.email,
+    iconName: 'email',
+    ariaLabel: 'Email',
+    target: '_blank',
+  },
+  {
+    href: config.links.github,
+    label: shortenUrl(config.links.github),
+    iconName: 'github',
+    ariaLabel: 'GitHub',
+    target: '_blank',
+  },
+  {
+    href: config.links.linkedin,
+    label: shortenUrl(config.links.linkedin),
+    iconName: 'linkedin',
+    ariaLabel: 'LinkedIn',
+    target: '_blank',
+  },
+];
+
 const allArticles = await getCollection('articles');
 const latestArticles = allArticles.slice(0, MAX_LATEST_ARTICLES);
 ---
@@ -23,42 +55,20 @@ const latestArticles = allArticles.slice(0, MAX_LATEST_ARTICLES);
 <BaseLayout title={title} description={description}>
   <h1 class="visually-hidden">Dmitrii Sviridov</h1>
   <section class="about-section">
-    <h2 class="greeting">Hey, I'm Dmitrii</h2>
-    <p class="about-text">
+    <h2 class="about-section__greeting">Hey, I'm Dmitrii</h2>
+    <p class="about-section__text">
       I’m a front-end developer based in Belgrade, Serbia. I love making
       high-performance web interfaces and helping others navigate the tech
       world. Outside of{he.nbsp}work, I enjoy playing video games and exploring
       new{he.nbsp}places.
     </p>
-    <ul class="links-list">
-      <li class="links-list__item">
-        <Icon class="links-list__icon" name="telegram" size={24} />
-        <Link href={config.links.telegram} aria-label="Telegram">
-          {shortenUrl(config.links.telegram)}
-        </Link>
-      </li>
-      <li class="links-list__item">
-        <Icon class="links-list__icon" name="email" size={24} />
-        <Link href={`mailto:${config.email}`} aria-label="Email">
-          {config.email}
-        </Link>
-      </li>
-      <li class="links-list__item">
-        <Icon class="links-list__icon" name="github" size={24} />
-        <Link href={config.links.github} aria-label="GitHub">
-          {shortenUrl(config.links.github)}
-        </Link>
-      </li>
-      <li class="links-list__item">
-        <Icon class="links-list__icon" name="linkedin" size={24} />
-        <Link href={config.links.linkedin} aria-label="LinkedIn">
-          {shortenUrl(config.links.linkedin)}
-        </Link>
-      </li>
-    </ul>
-    <p class="buymeacoffee">
+    <LinksList
+      className="about-section__links-list"
+      links={aboutSectionLinks}
+    />
+    <p class="about-section__buymeacoffee">
       You can also buy me a coffee by clicking
-      <span class="buymeacoffee__no-break">
+      <span class="about-section__buymeacoffee-no-break">
         <Link href={config.links.buymeacoffee} aria-label="Buy me a coffee">
           here</Link
         >
@@ -84,7 +94,7 @@ const latestArticles = allArticles.slice(0, MAX_LATEST_ARTICLES);
     }
   }
 
-  .greeting {
+  .about-section__greeting {
     margin: 0;
     margin-bottom: 16px;
     font-family: var(--font-family-heading);
@@ -99,7 +109,7 @@ const latestArticles = allArticles.slice(0, MAX_LATEST_ARTICLES);
     }
   }
 
-  .about-text {
+  .about-section__text {
     margin: 0;
     margin-bottom: 16px;
 
@@ -108,35 +118,19 @@ const latestArticles = allArticles.slice(0, MAX_LATEST_ARTICLES);
     }
   }
 
-  .links-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: 9px;
-    margin: 0;
+  .about-section__links-list {
     margin-bottom: 16px;
-    padding: 0;
-    list-style: none;
 
     @media (--tablet) {
-      grid-template-columns: repeat(2, 1fr);
       margin-bottom: 18px;
     }
   }
 
-  .links-list__item {
-    display: flex;
-    align-items: center;
-  }
-
-  .links-list__icon {
-    margin-right: 8px;
-  }
-
-  .buymeacoffee {
+  .about-section__buymeacoffee {
     margin: 0;
   }
 
-  .buymeacoffee__no-break {
+  .about-section__buymeacoffee-no-break {
     white-space: nowrap;
 
     span:last-child {
