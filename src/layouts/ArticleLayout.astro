@@ -1,17 +1,17 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { formatDate } from '@/utils/formatDate';
-import BaseLayout from './BaseLayout.astro';
 import TagsList from '@/components/TagsList.astro';
 import LinksList, { type LinksListItem } from '@/components/LinksList.astro';
 import { config } from '@/constants';
+import BaseLayout from './BaseLayout.astro';
 
 interface Props {
   articleData: CollectionEntry<'articles'>['data'];
 }
 
-const { title, createdOn, updatedOn, tags, xPostLink } =
-  Astro.props.articleData;
+const { articleData } = Astro.props;
+const { title, createdOn, updatedOn, tags, xPostLink } = articleData;
 
 const formattedCreatedOn = formatDate(createdOn);
 const formattedUpdatedOn = updatedOn && formatDate(updatedOn);
@@ -135,12 +135,38 @@ if (xPostLink) {
 
     h2,
     h3 {
+      position: relative;
       font-family: var(--font-family-heading);
       font-weight: 500;
 
       & + &,
       &:first-child {
         margin-top: 0;
+      }
+
+      .article__heading-link {
+        display: none;
+        margin-left: 8px;
+        color: var(--color-text-secondary);
+        text-decoration: none;
+
+        @media (--tablet) {
+          position: absolute;
+          left: 0;
+          margin-left: 0;
+          padding-right: 8px;
+          transform: translateX(-100%);
+        }
+
+        @media (--hover) {
+          &:hover {
+            color: var(--color-accent);
+          }
+        }
+      }
+
+      &:hover .article__heading-link {
+        display: inline;
       }
     }
 
@@ -257,3 +283,18 @@ if (xPostLink) {
     }
   }
 </style>
+
+<script>
+  const headings = document.querySelectorAll('h2, h3');
+
+  for (const heading of headings) {
+    const linkElement = document.createElement('a');
+    linkElement.href = '#' + heading.id;
+    linkElement.textContent = '#';
+    linkElement.className = 'article__heading-link';
+    linkElement.ariaHidden = 'true';
+
+    const headingElement = document.getElementById(heading.id);
+    headingElement?.appendChild(linkElement);
+  }
+</script>
