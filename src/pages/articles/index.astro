@@ -1,5 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { ARTICLE_TAGS } from '@/constants';
 import ArticlesList from '@/components/ArticlesList.astro';
@@ -7,7 +6,8 @@ import TagsList from '@/components/TagsList.astro';
 import {
   getSortedArticles,
   ArticlesSortOrder,
-} from '@/utils/getSortedArticles';
+  getAvailableArticles,
+} from '@/utils/getArticles';
 
 const title = 'Articles';
 const description =
@@ -15,7 +15,7 @@ const description =
   'front-end development and programming by Dmitrii Sviridov.';
 
 const articles = getSortedArticles(
-  await getCollection('articles'),
+  await getAvailableArticles(),
   ArticlesSortOrder.CREATED_ON,
 );
 const isEmpty = articles.length === 0;

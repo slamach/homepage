@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
 import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import { getAvailableArticles } from '@/utils/getArticles';
 
 export const getStaticPaths = async () => {
-  const articles = await getCollection('articles');
+  const articles = await getAvailableArticles();
 
   return articles.map((article) => ({
     params: { slug: article.slug },

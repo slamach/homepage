@@ -1,15 +1,15 @@
 ---
-import { getCollection } from 'astro:content';
 import { ARTICLE_TAGS } from '@/constants';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ArticlesList from '@/components/ArticlesList.astro';
 import {
   ArticlesSortOrder,
+  getAvailableArticles,
   getSortedArticles,
-} from '@/utils/getSortedArticles';
+} from '@/utils/getArticles';
 
 export const getStaticPaths = async () => {
-  const allArticles = await getCollection('articles');
+  const allArticles = await getAvailableArticles();
 
   return ARTICLE_TAGS.map((tag) => {
     const processedArticles = getSortedArticles(

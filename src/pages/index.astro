@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
 import { config } from '@/constants';
 import { shortenUrl } from '@/utils/shortenUrl';
 import { he } from '@/utils/htmlEntities';
@@ -10,8 +9,9 @@ import LinksList from '@/components/LinksList.astro';
 import ArticlesList from '@/components/ArticlesList.astro';
 import {
   ArticlesSortOrder,
+  getAvailableArticles,
   getSortedArticles,
-} from '@/utils/getSortedArticles';
+} from '@/utils/getArticles';
 
 const { title, description } = config.website;
 
@@ -49,10 +49,11 @@ const aboutSectionLinks: LinksListItem[] = [
 ];
 
 const allArticles = getSortedArticles(
-  await getCollection('articles'),
+  await getAvailableArticles(),
   ArticlesSortOrder.CREATED_ON,
 );
 const latestArticles = allArticles.slice(0, MAX_LATEST_ARTICLES);
+const isLatesArticlesEmpty = latestArticles.length === 0;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -84,7 +85,13 @@ const latestArticles = allArticles.slice(0, MAX_LATEST_ARTICLES);
       <h2 class="articles-section__title">Latest Articles</h2>
       <Link href="/articles">View all</Link>
     </div>
-    <ArticlesList articles={latestArticles} />
+    {
+      !isLatesArticlesEmpty ? (
+        <ArticlesList articles={latestArticles} />
+      ) : (
+        <p class="articles-section__empty-text">No articles found</p>
+      )
+    }
   </section>
 </BaseLayout>
 

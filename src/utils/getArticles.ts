@@ -1,4 +1,4 @@
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 export enum ArticlesSortOrder {
   CREATED_ON = 'created_on',
@@ -19,4 +19,12 @@ export const getSortedArticles = (
     default:
       return articles;
   }
+};
+
+export const getAvailableArticles = async () => {
+  const allArticles = await getCollection('articles');
+
+  return allArticles.filter(
+    (article) => !(import.meta.env.PROD && article.data.draft),
+  );
 };
