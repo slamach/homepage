@@ -7,4 +7,13 @@ export default defineConfig({
       iconDir: 'src/assets/icons',
     }),
   ],
+  markdown: {
+    shikiConfig: {
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      defaultColor: false,
+    },
+  },
 });

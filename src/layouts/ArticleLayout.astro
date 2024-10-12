@@ -128,7 +128,8 @@ if (xPostLink) {
     h3,
     ul,
     ol,
-    blockquote {
+    blockquote,
+    pre {
       margin: 0;
     }
 
@@ -167,6 +168,17 @@ if (xPostLink) {
       }
     }
 
+    a {
+      color: inherit;
+      text-decoration: underline;
+
+      @media (--hover) {
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+
     img {
       display: block;
       border-radius: 12px;
@@ -199,14 +211,48 @@ if (xPostLink) {
       }
     }
 
-    blockquote {
+    blockquote,
+    .astro-code {
       padding: 16px;
       border-radius: 12px;
-      background-color: var(--color-bg-secondary);
 
       @media (--tablet) {
         padding: 20px;
         border-radius: 20px;
+      }
+    }
+
+    blockquote {
+      background-color: var(--color-bg-secondary);
+    }
+
+    .astro-code,
+    .astro-code span {
+      /* FIXME: Theme dependent */
+      color: var(--shiki-light);
+
+      font-style: var(--shiki-light-font-style);
+      font-weight: var(--shiki-light-font-weight);
+      text-decoration: var(--shiki-light-text-decoration);
+
+      font-family: var(--font-family-monospace);
+      font-size: 14px;
+      background-color: var(--color-bg-secondary);
+
+      @media (--tablet) {
+        font-size: 16px;
+      }
+    }
+
+    :not(.astro-code) code {
+      padding: 0 4px;
+      font-family: var(--font-family-monospace);
+      font-size: 14px;
+      background-color: var(--color-bg-secondary);
+      border-radius: 2px;
+
+      @media (--tablet) {
+        font-size: 16px;
       }
     }
   }
