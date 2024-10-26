@@ -3,6 +3,10 @@
   --font-family-text: Inter, 'Inter Fallback', sans-serif;
   --font-family-heading: Poppins, 'Poppins Fallback', sans-serif;
   --font-family-monospace: 'JetBrains Mono', monospace;
+}
+
+:root.light {
+  color-scheme: light;
 
   /* Colors */
   --color-bg: #ffffff;
@@ -11,4 +15,16 @@
   --color-text-secondary: #5f5f6d;
   --color-accent: #463fa9;
   --color-accent-secondary: rgba(70, 63, 169, 0.3);
+}
+
+:root.dark {
+  color-scheme: dark;
+
+  /* Colors */
+  --color-bg: #0c0b1d;
+  --color-bg-secondary: #252334;
+  --color-text: #ffffff;
+  --color-text-secondary: #8d8fa0;
+  --color-accent: #bcb8fc;
+  --color-accent-secondary: rgba(188, 184, 252, 0.4);
 }

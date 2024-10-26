@@ -1,10 +1,10 @@
 ---
-import { Image } from 'astro:assets';
-import logoImage from '@/assets/logo.svg';
+import logoImage from '@/assets/logo.svg?raw';
 import { Icon } from 'astro-icon/components';
 import { config } from '@/constants';
 import IconLink from './IconLink.astro';
 import Link from './Link.astro';
+import ThemeSwitcher from './ThemeSwitcher.astro';
 
 interface Props {
   className?: string;
@@ -14,8 +14,8 @@ const { className, ...rest } = Astro.props;
 ---
 
 <header class:list={['header', className]} {...rest}>
-  <a class="header__logo" href="/">
-    <Image src={logoImage} alt="Dmitrii Sviridov's logo" loading="eager" />
+  <a class="header__logo" href="/" aria-label="Dmitrii Sviridov">
+    <Fragment set:html={logoImage} />
   </a>
   <button
     id="header-menu-button"
@@ -60,8 +60,7 @@ const { className, ...rest } = Astro.props;
         <IconLink href="/rss.xml" iconName="rss" ariaLabel="RSS" />
       </li>
       <li>
-        <!-- TODO: Make theme switch button -->
-        <IconLink href="#" iconName="sun" ariaLabel="Switch theme" />
+        <ThemeSwitcher />
       </li>
     </ul>
   </nav>
@@ -85,6 +84,7 @@ const { className, ...rest } = Astro.props;
   }
 
   .header__logo {
+    color: var(--color-text);
     margin-right: auto;
   }
 
@@ -160,7 +160,7 @@ const { className, ...rest } = Astro.props;
   const menuIconOpen = document.getElementById('header-menu-icon-open');
   const menuIconClose = document.getElementById('header-menu-icon-close');
 
-  menuButton?.addEventListener('click', () => {
+  const toggleMenu = () => {
     const isMenuOpen = menuButton?.getAttribute('aria-expanded') === 'true';
 
     if (isMenuOpen) {
@@ -172,5 +172,7 @@ const { className, ...rest } = Astro.props;
     navigation?.classList.toggle('shown');
     menuIconOpen?.classList.toggle('hidden');
     menuIconClose?.classList.toggle('hidden');
-  });
+  };
+
+  menuButton?.addEventListener('click', toggleMenu);
 </script>

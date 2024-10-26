@@ -252,7 +252,6 @@ if (xPostLink) {
 
     .astro-code,
     .astro-code span {
-      /* FIXME: Theme dependent */
       color: var(--shiki-light);
 
       font-style: var(--shiki-light-font-style);
@@ -278,6 +277,17 @@ if (xPostLink) {
       @media (--tablet) {
         font-size: 16px;
       }
+    }
+  }
+
+  :root.dark .article__main {
+    .astro-code,
+    .astro-code span {
+      color: var(--shiki-dark);
+
+      font-style: var(--shiki-dark-font-style);
+      font-weight: var(--shiki-dark-font-weight);
+      text-decoration: var(--shiki-dark-text-decoration);
     }
   }
 </style>

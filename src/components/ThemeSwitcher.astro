@@ -1,0 +1,114 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  className?: string;
+}
+
+const ICON_SIZE = 24;
+
+const { className, ...rest } = Astro.props;
+---
+
+<button
+  id="theme-switcher"
+  class:list={['theme-switcher', className]}
+  aria-label="Switch theme"
+  {...rest}
+>
+  <Icon class="theme-switcher__sun-icon" name="sun" size={ICON_SIZE} />
+  <Icon class="theme-switcher__moon-icon" name="moon" size={ICON_SIZE} />
+</button>
+
+<style>
+  .theme-switcher {
+    display: block;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    @media (--hover) {
+      &:hover {
+        color: var(--color-accent);
+      }
+    }
+  }
+
+  .theme-switcher[data-value='light'] {
+    .theme-switcher__sun-icon {
+      display: block;
+    }
+
+    .theme-switcher__moon-icon {
+      display: none;
+    }
+  }
+
+  .theme-switcher[data-value='dark'] {
+    .theme-switcher__sun-icon {
+      display: none;
+    }
+
+    .theme-switcher__moon-icon {
+      display: block;
+    }
+  }
+</style>
+
+<script is:inline>
+  const THEME_VALUE = {
+    LIGHT: 'light',
+    DARK: 'dark',
+  };
+  const LOCAL_STORAGE_THEME_KEY = 'theme';
+
+  const htmlElement = document.documentElement;
+  const themeSwitcher = document.getElementById('theme-switcher');
+
+  const getTheme = () => {
+    const localStorageThemeValue = localStorage.getItem(
+      LOCAL_STORAGE_THEME_KEY,
+    );
+
+    if (localStorageThemeValue) {
+      return localStorageThemeValue;
+    }
+
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return THEME_VALUE.DARK;
+    }
+
+    return THEME_VALUE.LIGHT;
+  };
+
+  const setTheme = (theme, setLocalStorageValue) => {
+    htmlElement.classList.remove(...Object.values(THEME_VALUE));
+    htmlElement.classList.add(theme);
+
+    if (themeSwitcher) {
+      themeSwitcher.dataset.value = theme;
+    }
+
+    if (setLocalStorageValue) {
+      localStorage.setItem(LOCAL_STORAGE_THEME_KEY, theme);
+    }
+  };
+
+  const theme = getTheme();
+
+  if (theme === THEME_VALUE.DARK) {
+    setTheme(THEME_VALUE.DARK, false);
+  } else {
+    setTheme(THEME_VALUE.LIGHT, false);
+  }
+
+  const switchTheme = () => {
+    const isCurrentThemeDark = themeSwitcher.dataset.value === THEME_VALUE.DARK;
+    const newTheme = isCurrentThemeDark ? THEME_VALUE.LIGHT : THEME_VALUE.DARK;
+
+    setTheme(newTheme, true);
+  };
+
+  themeSwitcher?.addEventListener('click', switchTheme);
+</script>
