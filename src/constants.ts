@@ -9,7 +9,7 @@ export const config = {
   },
   links: {
     resume: '#', // TODO: Add resume link
-    buymeacoffee: '#', // TODO: Add buymeacoffee link
+    buymeacoffee: 'https://buymeacoffee.com/slamach',
     telegram: 'https://t.me/slamach',
     github: 'https://github.com/slamach',
     blogSourceCode: 'https://github.com/slamach/homepage',
