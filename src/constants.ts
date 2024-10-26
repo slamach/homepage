@@ -8,7 +8,8 @@ export const config = {
     url: 'https://dmitriisviridov.com',
   },
   links: {
-    resume: '#', // TODO: Add resume link
+    resume:
+      'https://drive.google.com/file/d/1-KQh4cREIYub32BCgxei6IeHSDUYBi5B/view?usp=sharing',
     buymeacoffee: 'https://buymeacoffee.com/slamach',
     telegram: 'https://t.me/slamach',
     github: 'https://github.com/slamach',

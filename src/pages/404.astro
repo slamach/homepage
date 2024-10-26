@@ -1,0 +1,36 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const title = 'Not Found';
+---
+
+<!-- TODO: Add meaningful text and links to 404 page -->
+<BaseLayout title={title}>
+  <h1 class="not-found-page__title">Not Found</h1>
+  <p class="not-found-page__text">Page was not found.</p>
+</BaseLayout>
+
+<style>
+  .not-found-page__title {
+    margin: 0;
+    margin-bottom: 16px;
+    font-family: var(--font-family-heading);
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 36px;
+
+    @media (--tablet) {
+      margin-bottom: 18px;
+      font-size: 36px;
+      line-height: 44px;
+    }
+  }
+
+  .not-found-page__text {
+    margin-bottom: 16px;
+
+    @media (--tablet) {
+      margin-bottom: 18px;
+    }
+  }
+</style>
