@@ -73,7 +73,11 @@ const isLatesArticlesEmpty = latestArticles.length === 0;
     <p class="about-section__buymeacoffee">
       You can also buy me a coffee by clicking
       <span class="about-section__buymeacoffee-no-break">
-        <Link href={config.links.buymeacoffee} aria-label="Buy me a coffee">
+        <Link
+          href={config.links.buymeacoffee}
+          target="_blank"
+          aria-label="Buy me a coffee"
+        >
           here</Link
         >
         <span>.</span>

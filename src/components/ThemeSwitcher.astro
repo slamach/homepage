@@ -37,21 +37,21 @@ const { className, ...rest } = Astro.props;
 
   .theme-switcher[data-value='light'] {
     .theme-switcher__sun-icon {
-      display: block;
+      display: none;
     }
 
     .theme-switcher__moon-icon {
-      display: none;
+      display: block;
     }
   }
 
   .theme-switcher[data-value='dark'] {
     .theme-switcher__sun-icon {
-      display: none;
+      display: block;
     }
 
     .theme-switcher__moon-icon {
-      display: block;
+      display: none;
     }
   }
 </style>
