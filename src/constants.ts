@@ -9,7 +9,7 @@ export const config = {
   },
   links: {
     resume:
-      'https://drive.google.com/file/d/1-KQh4cREIYub32BCgxei6IeHSDUYBi5B/view?usp=sharing',
+      'https://drive.google.com/file/d/1i102SZ2khji1F1u9kYVT8nW5lex-sqEo/view',
     buymeacoffee: 'https://buymeacoffee.com/slamach',
     telegram: 'https://t.me/slamach',
     github: 'https://github.com/slamach',
